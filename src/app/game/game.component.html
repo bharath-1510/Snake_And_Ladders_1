@@ -65,7 +65,7 @@
   </div>
 
   <div class="score-section">
-    <button type="button" (click)="dice()">Stat</button>
+    <button type="button" (click)="stat()">Stat</button>
     <div class="dice" id="dice" [hidden]="disableButton">
       <div class="side one"></div>
       <div class="side two"></div>
@@ -81,5 +81,21 @@
     </button>
     <p>Position {{ player[id].position }}</p>
     <p>Player {{ id + 1 }}</p>
+  </div>
+  <div class="popup" id="popup-1">
+    <div class="overlay"></div>
+    <div class="content">
+      <h4>{{ res }}</h4>
+      <div class="stat">
+        <div class="single" *ngFor="let play of player">
+          Player Id {{ play.id }}
+          Positions
+          <span *ngFor="let pos of play.positions">
+            {{ pos }}
+          </span>
+        </div>
+      </div>
+      <button type="button" (click)="onClose()">Close</button>
+    </div>
   </div>
 </div>

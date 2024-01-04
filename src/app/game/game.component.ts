@@ -16,6 +16,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   diceValue: number = 0;
   id: number = 0;
   disableButton!: boolean;
+  res: string = 'statistics';
   color: string[] = ['yellow', 'lightcoral', 'chocolate', 'indigo'];
   player: Player[] = [];
   playerCount!: number;
@@ -74,7 +75,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.addSnake(
       1,
       [5, 7, 14, 15, 16, 25, 26, 27],
-      [75, 76, 77, 84, 85, 86, 95, 96, 97],
+      [75, 76, 77, 84, 85, 95, 96, 97],
       200,
       0,
       -100,
@@ -100,8 +101,8 @@ export class GameComponent implements OnInit, AfterViewInit {
       'red'
     );
     this.addLadder(0, 6, 72, 20, -5, 5, 25);
-    this.addLadder(1, 12, 96, 10, 0, 25, 25);
-    this.addLadder(2, 17, 65, 10, 0, 15, 30);
+    this.addLadder(1, 12, 86, 10, 0, 25, 25);
+    this.addLadder(2, 38, 65, 10, 0, 15, 30);
   }
   addLadder(
     i: number,
@@ -200,6 +201,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
   async dice() {
     this.disableButton = true;
+    this.player[this.id].positions.push(this.player[this.id].position);
     this.diceValue = this.getRandomIntInclusive(1, 6);
     const ele = document.getElementById(
       this.hideDice[this.diceValue - 1]
@@ -232,9 +234,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     } else if (this.player[this.id].position > 100) {
       this.player[this.id].position -= this.diceValue;
     } else if (this.player[this.id].position === 100) {
-      alert('Winner ' + (this.id + 1));
-      this.player[this.id].position = 0;
-      this.diceValue = 0;
+      this.res = 'Player ' + (this.id + 1) + ' is Winner';
+      const popupElement: any = document.getElementById('popup-1');
+      popupElement.classList.toggle('active');
+      await sleep(10000);
+      this.router.navigate(['/']);
     }
     const playerDiv = document.getElementById(
       'div' + this.player[this.id].position
@@ -243,6 +247,14 @@ export class GameComponent implements OnInit, AfterViewInit {
     playerDiv.style.background = this.player[this.id].color;
     this.id++;
     if (this.id === Number(this.playerCount)) this.id = 0;
+  }
+  onClose() {
+    const popupElement: any = document.getElementById('popup-1');
+    popupElement.classList.remove('active');
+  }
+  stat() {
+    const popupElement: any = document.getElementById('popup-1');
+    popupElement.classList.toggle('active');
   }
   getRandomIntInclusive(min: number, max: number): number {
     min = Math.ceil(min);

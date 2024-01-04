@@ -1,0 +1,8 @@
+<h1>SNAKE AND LADDERS</h1>
+<div class="game-section">
+  <div class="games" *ngFor="let player of playerCount">
+    <h3>{{ player }}</h3>
+    <p>{{ player == 1 ? "PLAYER" : "PLAYERS" }}</p>
+    <button type="button" (click)="navigate(player)">Go to Page</button>
+  </div>
+</div>

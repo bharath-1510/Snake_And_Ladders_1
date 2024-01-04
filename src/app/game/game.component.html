@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="game-container">
+    <div class="box" *ngFor="let n of num" id="div{{ n }}">
+      <p id="{{ n }}">
+        {{ n }}
+      </p>
+    </div>
+    <svg *ngFor="let curve of curveArr">
+      <defs>
+        <marker
+          id="head3"
+          orient="auto-start-reverse"
+          markerWidth="3"
+          markerHeight="4"
+          refX="0.1"
+          refY="2"
+        >
+          <path d="M0,0 V4 L2,2 Z" fill="black" />
+        </marker>
+      </defs>
+      <g fill="none" stroke="black" stroke-width="6">
+        <path
+          marker-start="url(#head3)"
+          stroke-linecap="round"
+          fill="none"
+          id="{{ curve }}"
+        />
+      </g>
+    </svg>
+    <svg *ngFor="let line of lineArr">
+      <filter id="dilate-and-xor">
+        <feMorphology
+          in="SourceGraphic"
+          result="dilate-result"
+          operator="dilate"
+          radius="1"
+        />
+        <feComposite
+          in="SourceGraphic"
+          in2="dilate-result"
+          result="xor-result"
+          operator="xor"
+        />
+      </filter>
+      <defs>
+        <marker
+          id="head3"
+          orient="auto"
+          markerWidth="3"
+          markerHeight="4"
+          refX="0.1"
+          refY="2"
+        >
+          <path d="M0,0 V4 L2,2 Z" fill="black" />
+        </marker>
+      </defs>
+      <path
+        marker-end="url(#head3)"
+        id="{{ line }}"
+        stroke-width="5"
+        stroke="black"
+        filter="url(#dilate-and-xor)"
+      />
+    </svg>
+  </div>
+
+  <div class="score-section">
+    <button type="button" (click)="dice()">Stat</button>
+    <div class="dice" id="dice" [hidden]="disableButton">
+      <div class="side one"></div>
+      <div class="side two"></div>
+      <div class="side three"></div>
+      <div class="side four"></div>
+      <div class="side five"></div>
+      <div class="side six"></div>
+    </div>
+    <div class="{{ side }}" *ngFor="let side of hideDice" id="{{ side }}"></div>
+
+    <button type="button" (click)="dice()" [disabled]="disableButton">
+      Stop
+    </button>
+    <p>Position {{ player[id].position }}</p>
+    <p>Player {{ id + 1 }}</p>
+  </div>
+</div>

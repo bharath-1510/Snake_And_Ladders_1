@@ -1,0 +1,46 @@
+.game-section {
+  margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 500px;
+  height: 300px;
+  .games {
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 200px;
+    h3 {
+      font-size: 100px;
+    }
+    p {
+      font-size: 24px;
+      margin-top: 50px;
+    }
+    button {
+      font-size: 20px;
+      cursor: pointer;
+      text-transform: uppercase;
+      width: 100%;
+      background-color: rgb(0, 206, 206);
+      height: 30px;
+      border-radius: 10px;
+    }
+    button:hover{
+      background-color: aqua;
+
+    }
+  }
+}
+h1 {
+  text-align: center;
+  color: aliceblue;
+  font-size: 40px;
+  text-transform: uppercase;
+  font-style: italic;
+  margin-top: 50px;
+}

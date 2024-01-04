@@ -1,0 +1,334 @@
+.container {
+  margin: 5px auto;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+
+  .game-container {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    width: 610px;
+
+    svg {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 900px;
+      height: 625px;
+      opacity: 00.5;
+    }
+    .box {
+      width: 60px;
+      margin-top: 2px;
+
+      height: 60px;
+      text-align: center;
+      padding: 15px;
+      background-color: azure;
+    }
+  }
+  .score-section {
+    color: white;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 140px;
+
+    p {
+      padding: 2px;
+      font-size: 30px;
+      width: 100%;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    button {
+      width: 100%;
+      font-size: 20px;
+      margin-top: 30px;
+      height: 30px;
+      text-transform: uppercase;
+    }
+
+    .dice {
+      position: relative;
+      width: 150px;
+      margin-top: 30px;
+      height: 150px;
+    }
+
+    .side {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border: 2px solid black;
+      position: absolute;
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .side {
+      &:before {
+        content: "";
+        width: 20%;
+        height: 20%;
+        background: black;
+        border-radius: 50%;
+      }
+    }
+    .two {
+      &:before {
+        background: transparent;
+        box-shadow: #000 -50px -50px 0px 0px, #000 50px 50px 0px 0px;
+      }
+    }
+    .three {
+      &:before {
+        box-shadow: #000 -50px 50px 0px 0px, #000 50px -50px 0px 0px;
+      }
+    }
+    .four {
+      &:before {
+        background: transparent;
+        box-shadow: #000 -50px 50px 0px 0px, #000 -50px -50px 0px 0px,
+          #000 50px 50px 0px 0px, #000 50px -50px 0px 0px;
+      }
+    }
+    .five {
+      &:before {
+        box-shadow: #000 -50px -50px 0px 0px, #000 -50px 50px 0px 0px,
+          #000 50px -50px 0px 0px, #000 50px 50px 0px 0px;
+      }
+    }
+    .six {
+      &:before {
+        background: transparent;
+        box-shadow: #000 -50px -50px 0px 0px, #000 -50px 0px 0px 0px,
+          #000 -50px 50px 0px 0px, #000 50px -50px 0px 0px,
+          #000 50px 0px 0px 0px, #000 50px 50px 0px 0px;
+      }
+    }
+    .dice {
+      transform-style: preserve-3d;
+      transform: rotateY(185deg) rotateX(150deg) rotateZ(315deg);
+    }
+    .one {
+      transform: translateZ(75px);
+    }
+    .six {
+      transform: translateZ(-75px);
+    }
+    .two {
+      transform: translateX(-75px) rotateY(-90deg);
+    }
+
+    .five {
+      transform: translateX(75px) rotateY(90deg);
+    }
+
+    .three {
+      transform: translateY(75px) rotateX(90deg);
+    }
+
+    .four {
+      transform: translateY(-75px) rotateX(90deg);
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotateY(0) rotateX(45deg) rotateZ(45deg);
+      }
+      to {
+        transform: rotateY(360deg) rotateX(45deg) rotateZ(45deg);
+      }
+    }
+
+    .dice {
+      animation: rotate 5s linear infinite;
+    }
+    .one1 {
+      width: 150px;
+      margin-top: 30px;
+      height: 150px;
+      background: white;
+      border: 2px solid black;
+      justify-content: center;
+      position: relative;
+    }
+
+    .one1:before {
+      content: "";
+      width: 20%;
+      height: 20%;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .two1 {
+      width: 150px;
+      margin-top: 30px;
+      height: 150px;
+      background: white;
+      border: 2px solid black;
+      position: relative;
+    }
+
+    .two1:before,
+    .two1:after {
+      content: "";
+      width: 20%;
+      height: 20%;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .two1:before {
+      top: 10px;
+      left: 10px;
+      transform: translate(0, 0);
+    }
+
+    .two1:after {
+      bottom: 10px;
+      right: 10px;
+      transform: translate(0, 0);
+    }
+
+    .three1 {
+      width: 150px;
+      margin-top: 30px;
+      height: 150px;
+      background: white;
+      border: 2px solid black;
+      position: relative;
+    }
+
+    .three1::before,
+    .three1::after {
+      content: "";
+      width: 20%;
+      height: 20%;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .three1::before {
+      top: 10px;
+      left: 10px;
+      transform: translate(0, 0);
+    }
+
+    .three1::after {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 50px 50px 0 0 black;
+    }
+    .four1 {
+      width: 150px;
+      margin-top: 30px;
+      height: 150px;
+      background: white;
+      border: 2px solid black;
+      position: relative;
+    }
+
+    .four1::before,
+    .four1::after {
+      content: "";
+      width: 20%;
+      height: 20%;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .four1::before {
+      top: 10px;
+      left: 10px;
+      transform: translate(0, 0);
+      box-shadow: 0px 100px 0 0 black;
+    }
+
+    .four1::after {
+      bottom: 5px;
+      right: 10px;
+      transform: translate(0, 0);
+      box-shadow: 0px -100px 0 0 black;
+    }
+
+    .five1 {
+      width: 150px;
+      margin-top: 30px;
+      height: 150px;
+      background: white;
+      border: 2px solid black;
+      position: relative;
+    }
+
+    .five1::before,
+    .five1::after {
+      content: "";
+      width: 20%;
+      height: 20%;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .five1::before {
+      top: 10px;
+      left: 10px;
+      transform: translate(0, 0);
+      box-shadow: 0px 100px 0 0 black;
+    }
+
+    .five1::after {
+      bottom: 5px;
+      right: 10px;
+      transform: translate(0, 0);
+      box-shadow: 0px -100px 0 0 black, -40px -50px 0 0 black;
+    }
+    .six1 {
+      width: 150px;
+      margin-top: 30px;
+      height: 150px;
+      background: white;
+      border: 2px solid black;
+      position: relative;
+    }
+
+    .six1::before,
+    .six1::after {
+      content: "";
+      width: 20%;
+      height: 20%;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .six1::before {
+      top: 10px;
+      left: 10px;
+      transform: translate(0, 0);
+      box-shadow: 0px 100px 0 0 black, 0px 50px 0 0 black;
+    }
+
+    .six1::after {
+      bottom: 5px;
+      right: 10px;
+      transform: translate(0, 0);
+      box-shadow: 0px -100px 0 0 black, 0px -50px 0 0 black;
+    }
+  }
+}

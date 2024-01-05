@@ -211,7 +211,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       'div' + this.player[this.id].position
     ) as HTMLElement;
     if (this.player[this.id].position != 0) {
-      playerDiv1.style.background = 'white';
+      this.changeColor(playerDiv1, 'white', this.id);
     }
     await sleep(1000);
     ele.style.display = 'none';
@@ -258,9 +258,32 @@ export class GameComponent implements OnInit, AfterViewInit {
       'div' + this.player[this.id].position
     ) as HTMLElement;
     this.player[this.id].positions.push(this.player[this.id].position);
-    playerDiv.style.background = this.player[this.id].color;
+    this.changeColor(playerDiv, this.player[this.id].color, this.id);
+
     this.id++;
     if (this.id === Number(this.playerCount)) this.id = 0;
+  }
+  changeColor(playerDiv: HTMLElement, color: string, id: number) {
+    if (this.playerCount == 1) {
+      playerDiv.style.background = color;
+    }
+    if (this.playerCount == 2) {
+      if (id == 0) playerDiv.style.borderTop = '10px solid ' + color;
+      else playerDiv.style.borderBottom = '10px solid ' + color;
+    }
+    if (this.playerCount == 3) {
+      if (id == 0) playerDiv.style.borderTop = '10px solid ' + color;
+
+      if (id == 1) playerDiv.style.borderBottom = '10px solid ' + color;
+      if (id == 2) playerDiv.style.borderLeft = '10px solid ' + color;
+    }
+    if (this.playerCount == 4) {
+      if (id == 0) playerDiv.style.borderTop = '10px solid ' + color;
+
+      if (id == 1) playerDiv.style.borderBottom = '10px solid ' + color;
+      if (id == 2) playerDiv.style.borderLeft = '10px solid ' + color;
+      if (id == 3) playerDiv.style.borderRight = '10px solid ' + color;
+    }
   }
   onClose() {
     const popupElement: any = document.getElementById('popup-1');

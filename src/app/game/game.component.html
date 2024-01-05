@@ -85,7 +85,12 @@
   <div class="popup" id="popup-1">
     <div class="overlay"></div>
     <div class="content">
-      <h4>{{ res }}</h4>
+      <h4>
+        {{ res }}
+        <div class="option">
+          (=> : normal, ==> : snake, ===> : ladder, == : end)
+        </div>
+      </h4>
       <div class="stat">
         <div class="single" *ngFor="let play of player">
           Player Id {{ play.id }}

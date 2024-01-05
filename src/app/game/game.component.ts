@@ -220,35 +220,50 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.player[this.id].position =
       this.player[this.id].position + this.diceValue;
     if (this.ladder[2].start == this.player[this.id].position) {
-      this.player[this.id].positions.push(this.player[this.id].position);
+      this.player[this.id].positions.push(
+        this.player[this.id].position + ' ===> '
+      );
 
       this.player[this.id].position = this.ladder[2].end;
     } else if (this.ladder[0].start == this.player[this.id].position) {
-      this.player[this.id].positions.push(this.player[this.id].position);
+      this.player[this.id].positions.push(
+        this.player[this.id].position + ' ===> '
+      );
 
       this.player[this.id].position = this.ladder[0].end;
     } else if (this.ladder[1].start == this.player[this.id].position) {
-      this.player[this.id].positions.push(this.player[this.id].position);
+      this.player[this.id].positions.push(
+        this.player[this.id].position + ' ===> '
+      );
 
       this.player[this.id].position = this.ladder[1].end;
     } else if (this.snake[0].end == this.player[this.id].position) {
-      this.player[this.id].positions.push(this.player[this.id].position);
+      this.player[this.id].positions.push(
+        this.player[this.id].position + ' ==> '
+      );
 
       this.player[this.id].position = this.snake[0].start;
     } else if (this.snake[1].end == this.player[this.id].position) {
-      this.player[this.id].positions.push(this.player[this.id].position);
+      this.player[this.id].positions.push(
+        this.player[this.id].position + ' ==> '
+      );
 
       this.player[this.id].position = this.snake[1].start;
     } else if (this.snake[2].end == this.player[this.id].position) {
-      this.player[this.id].positions.push(this.player[this.id].position);
+      this.player[this.id].positions.push(
+        this.player[this.id].position + ' ==> '
+      );
 
       this.player[this.id].position = this.snake[2].start;
     } else if (this.player[this.id].position > 100) {
-      this.player[this.id].positions.push(this.player[this.id].position);
+      this.player[this.id].positions.push(
+        this.player[this.id].position + ' == '
+      );
 
       this.player[this.id].position -= this.diceValue;
     } else if (this.player[this.id].position === 100) {
       this.res = 'Player ' + (this.id + 1) + ' is Winner';
+      this.player[this.id].positions.push(100 + ' == ');
       const popupElement: any = document.getElementById('popup-1');
       popupElement.classList.toggle('active');
       await sleep(10000);
@@ -257,7 +272,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     const playerDiv = document.getElementById(
       'div' + this.player[this.id].position
     ) as HTMLElement;
-    this.player[this.id].positions.push(this.player[this.id].position);
+    this.player[this.id].positions.push(this.player[this.id].position + ' => ');
     this.changeColor(playerDiv, this.player[this.id].color, this.id);
 
     this.id++;

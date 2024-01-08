@@ -355,7 +355,10 @@ export class GameComponent implements OnInit, AfterViewInit {
       }
 
       if (id == 1) playerDiv.style.removeProperty('border-bottom');
-      if (id == 2) playerDiv.style.removeProperty('border-left');
+      if (id == 2) {
+        pElement.style.marginLeft = '15px';
+        playerDiv.style.removeProperty('border-left');
+      }
     }
     if (this.playerCount == 4) {
       if (id == 0) {
@@ -364,8 +367,14 @@ export class GameComponent implements OnInit, AfterViewInit {
       }
 
       if (id == 1) playerDiv.style.removeProperty('border-bottom');
-      if (id == 2) playerDiv.style.removeProperty('border-left');
-      if (id == 3) playerDiv.style.removeProperty('border-right');
+      if (id == 2) {
+        pElement.style.marginLeft = '15px';
+        playerDiv.style.removeProperty('border-left');
+      }
+      if (id == 3) {
+        pElement.style.marginRight = '15px';
+        playerDiv.style.removeProperty('border-right');
+      }
     }
   }
   addLadders() {
@@ -398,17 +407,25 @@ export class GameComponent implements OnInit, AfterViewInit {
       }
 
       if (id == 1) playerDiv.style.borderBottom = '10px solid ' + color;
-      if (id == 2) playerDiv.style.borderLeft = '10px solid ' + color;
+      if (id == 2) {
+        pElement.style.marginLeft = '5px';
+        playerDiv.style.borderLeft = '10px solid ' + color;
+      }
     }
     if (this.playerCount == 4) {
       if (id == 0) {
         pElement.style.marginTop = '5px';
         playerDiv.style.borderTop = '10px solid ' + color;
       }
-
       if (id == 1) playerDiv.style.borderBottom = '10px solid ' + color;
-      if (id == 2) playerDiv.style.borderLeft = '10px solid ' + color;
-      if (id == 3) playerDiv.style.borderRight = '10px solid ' + color;
+      if (id == 2) {
+        pElement.style.marginLeft = '5px';
+        playerDiv.style.borderLeft = '10px solid ' + color;
+      }
+      if (id == 3) {
+        pElement.style.marginRight = '5px';
+        playerDiv.style.borderRight = '10px solid ' + color;
+      }
     }
   }
   onClose() {

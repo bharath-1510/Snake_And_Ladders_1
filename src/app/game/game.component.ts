@@ -58,10 +58,13 @@ export class GameComponent implements OnInit, AfterViewInit {
       const ele = document.getElementById(element) as HTMLElement;
       ele.style.display = 'none';
     }
+    this.addSnakesAndLadders();
+  }
+  addSnakesAndLadders() {
     this.addSnake(
       0,
       [2, 3, 4, 17, 18, 19, 20, 21, 22, 23, 24],
-      [71, 73, 74, 87, 88, 89, 90, 91, 92, 93, 94],
+      [71, 73, 74, 88, 89, 90, 91, 92, 93, 94],
       0,
       0,
       0,
@@ -75,7 +78,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.addSnake(
       1,
       [5, 7, 14, 15, 16, 25, 26, 27],
-      [75, 76, 77, 84, 85, 95, 96, 97],
+      [76, 77, 84, 85, 95, 96, 97],
       200,
       0,
       -100,
@@ -100,19 +103,21 @@ export class GameComponent implements OnInit, AfterViewInit {
       25,
       'red'
     );
-    this.addLadder(0, 6, 72, 20, -5, 5, 25);
-    this.addLadder(1, 12, 86, 10, 0, 25, 25);
-    this.addLadder(2, 38, 65, 10, 0, 15, 30);
+    this.addLadder(0, [6, 9], [72, 75], 20, -5, 5, 25);
+    this.addLadder(1, [11, 12], [86, 87], 10, 0, 25, 25);
+    this.addLadder(2, [38, 39], [65, 64], 10, 0, 15, 30);
   }
   addLadder(
     i: number,
-    start: number,
-    end: number,
+    startArr: number[],
+    endArr: number[],
     sLeft: number,
     sTop: number,
     eLeft: number,
     eTop: number
   ) {
+    let start = this.getRandomInt(startArr);
+    let end = this.getRandomInt(endArr);
     this.ladder[i] = new Ladder(start, end);
     let elStart2 = document.getElementById(start + '');
     let elEnd2 = document.getElementById(end + '');
@@ -129,6 +134,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       elEndTop2 = this.getOffset(elEnd2).top + eTop;
     }
     let line2 = document.getElementById('line' + i);
+
     line2?.setAttribute(
       'd',
       'M' +
@@ -277,6 +283,12 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     this.id++;
     if (this.id === Number(this.playerCount)) this.id = 0;
+    this.addLadders();
+  }
+  addLadders() {
+    this.addLadder(0, [6, 9], [72, 75], 20, -5, 5, 25);
+    this.addLadder(1, [11, 12], [86, 87], 10, 0, 25, 25);
+    this.addLadder(2, [38, 39], [65, 64], 10, 0, 15, 30);
   }
   changeColor(playerDiv: HTMLElement, color: string, id: number) {
     if (this.playerCount == 1) {

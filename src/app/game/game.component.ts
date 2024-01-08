@@ -227,11 +227,14 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.hideDice[this.diceValue - 1]
     ) as HTMLElement;
     ele.style.display = 'block';
+    const pElement1 = document.getElementById(
+      this.player[this.id].position + ''
+    ) as HTMLElement;
     const playerDiv1 = document.getElementById(
       'div' + this.player[this.id].position
     ) as HTMLElement;
     if (this.player[this.id].position != 0) {
-      this.removeColor(playerDiv1, this.id);
+      this.removeColor(playerDiv1, this.id, pElement1);
     }
     this.player[this.id].position =
       this.player[this.id].position + this.diceValue;
@@ -296,7 +299,15 @@ export class GameComponent implements OnInit, AfterViewInit {
       const playerDiv = document.getElementById(
         'div' + this.player[this.id].position
       ) as HTMLElement;
-      this.changeColor(playerDiv, this.player[this.id].color, this.id);
+      const pElement = document.getElementById(
+        this.player[this.id].position + ''
+      ) as HTMLElement;
+      this.changeColor(
+        playerDiv,
+        this.player[this.id].color,
+        this.id,
+        pElement
+      );
     } else {
       for (
         let i = this.player[this.id].position - this.diceValue + 1;
@@ -304,14 +315,21 @@ export class GameComponent implements OnInit, AfterViewInit {
         i++
       ) {
         if (i > 1) {
+          const pElement = document.getElementById(i - 1 + '') as HTMLElement;
           const prevPlayerDiv = document.getElementById(
             'div' + (i - 1)
           ) as HTMLElement;
-          this.removeColor(prevPlayerDiv, this.id);
+          this.removeColor(prevPlayerDiv, this.id, pElement);
         }
         await sleep(200);
+        const pElement = document.getElementById(i + '') as HTMLElement;
         const playerDiv = document.getElementById('div' + i) as HTMLElement;
-        this.changeColor(playerDiv, this.player[this.id].color, this.id);
+        this.changeColor(
+          playerDiv,
+          this.player[this.id].color,
+          this.id,
+          pElement
+        );
         await sleep(200);
       }
     }
@@ -320,22 +338,30 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.id++;
     if (this.id === Number(this.playerCount)) this.id = 0;
   }
-  removeColor(playerDiv: HTMLElement, id: number) {
+  removeColor(playerDiv: HTMLElement, id: number, pElement: HTMLElement) {
     if (this.playerCount == 1) {
       playerDiv.style.removeProperty('background');
     }
     if (this.playerCount == 2) {
-      if (id == 0) playerDiv.style.removeProperty('border-top');
-      else playerDiv.style.removeProperty('border-bottom');
+      if (id == 0) {
+        pElement.style.marginTop = '15px';
+        playerDiv.style.removeProperty('border-top');
+      } else playerDiv.style.removeProperty('border-bottom');
     }
     if (this.playerCount == 3) {
-      if (id == 0) playerDiv.style.removeProperty('border-top');
+      if (id == 0) {
+        pElement.style.marginTop = '15px';
+        playerDiv.style.removeProperty('border-top');
+      }
 
       if (id == 1) playerDiv.style.removeProperty('border-bottom');
       if (id == 2) playerDiv.style.removeProperty('border-left');
     }
     if (this.playerCount == 4) {
-      if (id == 0) playerDiv.style.removeProperty('border-top');
+      if (id == 0) {
+        pElement.style.marginTop = '15px';
+        playerDiv.style.removeProperty('border-top');
+      }
 
       if (id == 1) playerDiv.style.removeProperty('border-bottom');
       if (id == 2) playerDiv.style.removeProperty('border-left');
@@ -350,22 +376,35 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.addLadder(1, [11], [86], 10, 0, 25, 25);
     this.addLadder(2, [37], [65], 10, 0, 15, 30);
   }
-  changeColor(playerDiv: HTMLElement, color: string, id: number) {
+  changeColor(
+    playerDiv: HTMLElement,
+    color: string,
+    id: number,
+    pElement: HTMLElement
+  ) {
     if (this.playerCount == 1) {
       playerDiv.style.background = color;
     }
     if (this.playerCount == 2) {
-      if (id == 0) playerDiv.style.borderTop = '10px solid ' + color;
-      else playerDiv.style.borderBottom = '10px solid ' + color;
+      if (id == 0) {
+        pElement.style.marginTop = '5px';
+        playerDiv.style.borderTop = '10px solid ' + color;
+      } else playerDiv.style.borderBottom = '10px solid ' + color;
     }
     if (this.playerCount == 3) {
-      if (id == 0) playerDiv.style.borderTop = '10px solid ' + color;
+      if (id == 0) {
+        pElement.style.marginTop = '5px';
+        playerDiv.style.borderTop = '10px solid ' + color;
+      }
 
       if (id == 1) playerDiv.style.borderBottom = '10px solid ' + color;
       if (id == 2) playerDiv.style.borderLeft = '10px solid ' + color;
     }
     if (this.playerCount == 4) {
-      if (id == 0) playerDiv.style.borderTop = '10px solid ' + color;
+      if (id == 0) {
+        pElement.style.marginTop = '5px';
+        playerDiv.style.borderTop = '10px solid ' + color;
+      }
 
       if (id == 1) playerDiv.style.borderBottom = '10px solid ' + color;
       if (id == 2) playerDiv.style.borderLeft = '10px solid ' + color;

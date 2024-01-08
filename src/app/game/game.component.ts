@@ -115,11 +115,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     eTop: number
   ) {
     let start = this.getRandomInt(startArr);
-    let playerPositions: number[] = this.getAllPlayersPositions();
-    while (true) {
-      if (this.checkPositions(start, playerPositions)) break;
-      start = this.getRandomInt(startArr);
-    }
+    // let playerPositions: number[] = this.getAllPlayersPositions();
+    // while (true) {
+    //   if (this.checkPositions(start, playerPositions)) break;
+    //   start = this.getRandomInt(startArr);
+    // }
     let end = this.getRandomInt(endArr);
     this.ladder[i] = new Ladder(start, end);
     let elStart2 = document.getElementById(start + '');
@@ -343,9 +343,12 @@ export class GameComponent implements OnInit, AfterViewInit {
     }
   }
   addLadders() {
-    this.addLadder(0, [6, 7, 8, 9, 10], [72, 75], 20, -5, 5, 25);
-    this.addLadder(1, [11, 12, 13, 14, 15], [86, 87], 10, 0, 25, 25);
-    this.addLadder(2, [36, 37, 38, 39, 40], [65, 64], 10, 0, 15, 30);
+    // this.addLadder(0, [6, 7, 8, 9, 10], [72, 75], 20, -5, 5, 25);
+    // this.addLadder(1, [11, 12, 13, 14, 15], [86, 87], 10, 0, 25, 25);
+    // this.addLadder(2, [36, 37, 38, 39, 40], [65, 64], 10, 0, 15, 30);
+    this.addLadder(0, [6], [72], 20, -5, 5, 25);
+    this.addLadder(1, [11], [86], 10, 0, 25, 25);
+    this.addLadder(2, [37], [65], 10, 0, 15, 30);
   }
   changeColor(playerDiv: HTMLElement, color: string, id: number) {
     if (this.playerCount == 1) {

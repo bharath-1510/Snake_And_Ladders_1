@@ -116,12 +116,10 @@ export class GameComponent implements OnInit, AfterViewInit {
     eLeft: number,
     eTop: number
   ) {
-
     let start = this.getRandomInt(startArr);
-    let playerPositions:number[]=this.getAllPlayersPositions();
+    let playerPositions: number[] = this.getAllPlayersPositions();
     while (true) {
-      if(this.checkPositions(start,playerPositions))
-        break;
+      if (this.checkPositions(start, playerPositions)) break;
       start = this.getRandomInt(startArr);
     }
     let end = this.getRandomInt(endArr);
@@ -154,15 +152,14 @@ export class GameComponent implements OnInit, AfterViewInit {
         elEndTop2
     );
   }
-  checkPositions(start: number, playerPositions: number[]):boolean {
-    for(let i=0;i<this.playerCount;i++)
-      if(start===playerPositions[i])
-        return false;
+  checkPositions(start: number, playerPositions: number[]): boolean {
+    for (let i = 0; i < this.playerCount; i++)
+      if (start === playerPositions[i]) return false;
     return true;
   }
   getAllPlayersPositions(): number[] {
-    let playerPositions:number[]=[];
-    for(let i=0;i<this.playerCount;i++)
+    let playerPositions: number[] = [];
+    for (let i = 0; i < this.playerCount; i++)
       playerPositions.push(this.player[i].position);
     return playerPositions;
   }
@@ -291,7 +288,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.player[this.id].positions.push(100 + ' == ');
       const popupElement: any = document.getElementById('popup-1');
       popupElement.classList.toggle('active');
-      await sleep(10000);
+      await sleep(20000);
       this.router.navigate(['/']);
     }
     const playerDiv = document.getElementById(

@@ -77,7 +77,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     );
     this.addSnake(
       1,
-      [5, 7, 14, 15, 16, 25, 26, 27],
+      [5, 16, 25, 26, 27],
       [76, 77, 84, 85, 95, 96, 97],
       200,
       0,
@@ -103,9 +103,9 @@ export class GameComponent implements OnInit, AfterViewInit {
       25,
       'red'
     );
-    this.addLadder(0, [6, 9], [72, 75], 20, -5, 5, 25);
-    this.addLadder(1, [11, 12], [86, 87], 10, 0, 25, 25);
-    this.addLadder(2, [38, 39], [65, 64], 10, 0, 15, 30);
+    this.addLadder(0, [6, 7, 8, 9, 10], [72, 75], 20, -5, 5, 25);
+    this.addLadder(1, [11, 12, 13, 14, 15], [86, 87], 10, 0, 25, 25);
+    this.addLadder(2, [36, 37, 38, 39, 40], [65, 64], 10, 0, 15, 30);
   }
   addLadder(
     i: number,
@@ -116,7 +116,14 @@ export class GameComponent implements OnInit, AfterViewInit {
     eLeft: number,
     eTop: number
   ) {
+
     let start = this.getRandomInt(startArr);
+    let playerPositions:number[]=this.getAllPlayersPositions();
+    while (true) {
+      if(this.checkPositions(start,playerPositions))
+        break;
+      start = this.getRandomInt(startArr);
+    }
     let end = this.getRandomInt(endArr);
     this.ladder[i] = new Ladder(start, end);
     let elStart2 = document.getElementById(start + '');
@@ -146,6 +153,18 @@ export class GameComponent implements OnInit, AfterViewInit {
         ',' +
         elEndTop2
     );
+  }
+  checkPositions(start: number, playerPositions: number[]):boolean {
+    for(let i=0;i<this.playerCount;i++)
+      if(start===playerPositions[i])
+        return false;
+    return true;
+  }
+  getAllPlayersPositions(): number[] {
+    let playerPositions:number[]=[];
+    for(let i=0;i<this.playerCount;i++)
+      playerPositions.push(this.player[i].position);
+    return playerPositions;
   }
 
   addSnake(

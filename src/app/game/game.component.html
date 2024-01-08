@@ -80,7 +80,9 @@
       Stop
     </button>
     <p>Position {{ player[id].position }}</p>
-    <p>Player {{ id + 1 }}</p>
+    <p style="border: 6px solid" [style.border-color]="player[id].color">
+      Player {{ id + 1 }}
+    </p>
   </div>
   <div class="popup" id="popup-1">
     <div class="overlay"></div>

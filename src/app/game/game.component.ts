@@ -103,9 +103,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       25,
       'red'
     );
-    this.addLadder(0, [6, 7, 8, 9, 10], [72, 75], 20, -5, 5, 25);
-    this.addLadder(1, [11, 12, 13, 14, 15], [86, 87], 10, 0, 25, 25);
-    this.addLadder(2, [36, 37, 38, 39, 40], [65, 64], 10, 0, 15, 30);
+    this.addLadders();
   }
   addLadder(
     i: number,
@@ -223,7 +221,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
   async dice() {
     this.disableButton = true;
-
+    let moveDice = false;
     this.diceValue = this.getRandomIntInclusive(1, 6);
     const ele = document.getElementById(
       this.hideDice[this.diceValue - 1]
@@ -233,78 +231,121 @@ export class GameComponent implements OnInit, AfterViewInit {
       'div' + this.player[this.id].position
     ) as HTMLElement;
     if (this.player[this.id].position != 0) {
-      this.changeColor(playerDiv1, 'white', this.id);
+      this.removeColor(playerDiv1, this.id);
     }
-    await sleep(1000);
-    ele.style.display = 'none';
-
-    this.disableButton = false;
     this.player[this.id].position =
       this.player[this.id].position + this.diceValue;
     if (this.ladder[2].start == this.player[this.id].position) {
       this.player[this.id].positions.push(
         this.player[this.id].position + ' ===> '
       );
-
+      moveDice = true;
       this.player[this.id].position = this.ladder[2].end;
     } else if (this.ladder[0].start == this.player[this.id].position) {
       this.player[this.id].positions.push(
         this.player[this.id].position + ' ===> '
       );
+      moveDice = true;
 
       this.player[this.id].position = this.ladder[0].end;
     } else if (this.ladder[1].start == this.player[this.id].position) {
       this.player[this.id].positions.push(
         this.player[this.id].position + ' ===> '
       );
+      moveDice = true;
 
       this.player[this.id].position = this.ladder[1].end;
     } else if (this.snake[0].end == this.player[this.id].position) {
       this.player[this.id].positions.push(
         this.player[this.id].position + ' ==> '
       );
+      moveDice = true;
 
       this.player[this.id].position = this.snake[0].start;
     } else if (this.snake[1].end == this.player[this.id].position) {
       this.player[this.id].positions.push(
         this.player[this.id].position + ' ==> '
       );
+      moveDice = true;
 
       this.player[this.id].position = this.snake[1].start;
     } else if (this.snake[2].end == this.player[this.id].position) {
       this.player[this.id].positions.push(
         this.player[this.id].position + ' ==> '
       );
+      moveDice = true;
 
       this.player[this.id].position = this.snake[2].start;
     } else if (this.player[this.id].position > 100) {
       this.player[this.id].positions.push(
         this.player[this.id].position + ' == '
       );
-
+      moveDice = true;
       this.player[this.id].position -= this.diceValue;
     } else if (this.player[this.id].position === 100) {
       this.res = 'Player ' + (this.id + 1) + ' is Winner';
       this.player[this.id].positions.push(100 + ' == ');
+      moveDice = true;
       const popupElement: any = document.getElementById('popup-1');
       popupElement.classList.toggle('active');
       await sleep(20000);
       this.router.navigate(['/']);
     }
-    const playerDiv = document.getElementById(
-      'div' + this.player[this.id].position
-    ) as HTMLElement;
     this.player[this.id].positions.push(this.player[this.id].position + ' => ');
-    this.changeColor(playerDiv, this.player[this.id].color, this.id);
-
+    if (moveDice) {
+      const playerDiv = document.getElementById(
+        'div' + this.player[this.id].position
+      ) as HTMLElement;
+      this.changeColor(playerDiv, this.player[this.id].color, this.id);
+    } else {
+      for (
+        let i = this.player[this.id].position - this.diceValue + 1;
+        i <= this.player[this.id].position;
+        i++
+      ) {
+        if (i > 1) {
+          const prevPlayerDiv = document.getElementById(
+            'div' + (i - 1)
+          ) as HTMLElement;
+          this.removeColor(prevPlayerDiv, this.id);
+        }
+        await sleep(200);
+        const playerDiv = document.getElementById('div' + i) as HTMLElement;
+        this.changeColor(playerDiv, this.player[this.id].color, this.id);
+        await sleep(200);
+      }
+    }
+    ele.style.display = 'none';
+    this.disableButton = false;
     this.id++;
     if (this.id === Number(this.playerCount)) this.id = 0;
-    this.addLadders();
+  }
+  removeColor(playerDiv: HTMLElement, id: number) {
+    if (this.playerCount == 1) {
+      playerDiv.style.removeProperty('background');
+    }
+    if (this.playerCount == 2) {
+      if (id == 0) playerDiv.style.removeProperty('border-top');
+      else playerDiv.style.removeProperty('border-bottom');
+    }
+    if (this.playerCount == 3) {
+      if (id == 0) playerDiv.style.removeProperty('border-top');
+
+      if (id == 1) playerDiv.style.removeProperty('border-bottom');
+      if (id == 2) playerDiv.style.removeProperty('border-left');
+    }
+    if (this.playerCount == 4) {
+      if (id == 0) playerDiv.style.removeProperty('border-top');
+
+      if (id == 1) playerDiv.style.removeProperty('border-bottom');
+      if (id == 2) playerDiv.style.removeProperty('border-left');
+      if (id == 3) playerDiv.style.removeProperty('border-right');
+    }
   }
   addLadders() {
-    this.addLadder(0, [6, 9], [72, 75], 20, -5, 5, 25);
-    this.addLadder(1, [11, 12], [86, 87], 10, 0, 25, 25);
-    this.addLadder(2, [38, 39], [65, 64], 10, 0, 15, 30);
+    this.addLadder(0, [6, 7, 8, 9, 10], [72, 75], 20, -5, 5, 25);
+    this.addLadder(1, [11, 12, 13, 14, 15], [86, 87], 10, 0, 25, 25);
+    this.addLadder(2, [36, 37, 38, 39, 40], [65, 64], 10, 0, 15, 30);
   }
   changeColor(playerDiv: HTMLElement, color: string, id: number) {
     if (this.playerCount == 1) {
